@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axiosInstace";
 import logo from "../assets/solace-logo.png";
 
 function Login() {
@@ -20,10 +20,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData,
-      );
+      const res = await axios.post("/auth/login", formData);
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
