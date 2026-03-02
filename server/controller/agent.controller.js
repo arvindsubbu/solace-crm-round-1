@@ -10,15 +10,15 @@ exports.getAgents = (req, res) => {
 
 // CREATE agent
 exports.createAgent = (req, res) => {
-  const { name, email, phone } = req.body;
+  const { name, email, phone, company, status } = req.body;
 
-  if (!name || !email || !phone) {
+  if (!name || !email || !phone || !company || !status) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   db.query(
-    "INSERT INTO agents (name, email, phone) VALUES (?, ?, ?)",
-    [name, email, phone],
+    "INSERT INTO agents (name, company, email, phone, status) VALUES (?, ?, ?, ?, ?)",
+    [name, company, email, phone, status],
     (err, result) => {
       if (err) return res.status(500).json({ error: err });
 
@@ -33,11 +33,11 @@ exports.createAgent = (req, res) => {
 // UPDATE agent
 exports.updateAgent = (req, res) => {
   const { id } = req.params;
-  const { name, email, phone } = req.body;
+  const { name, email, phone, company, status } = req.body;
 
   db.query(
-    "UPDATE agents SET name = ?, email = ?, phone = ? WHERE id = ?",
-    [name, email, phone, id],
+    "UPDATE agents SET name=?, company=?, email=?, phone=?, status=? WHERE id=?",
+  [name, company, email, phone, status, req.params.id],
     (err, result) => {
       if (err) return res.status(500).json({ error: err });
 
