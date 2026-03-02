@@ -3,6 +3,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Agents from "./pages/Agents";
+import DashboardLayout from "./components/DashboardLayout";
 
 function App() {
   return (
@@ -11,17 +13,18 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
-          path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <DashboardLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/agents" element={<Agents />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
