@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import { useState } from 'react';
+import axios from "../api/axiosInstace";
+import { useState } from "react";
 import logo from "../assets/solace-logo.png";
 
 function Register() {
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
@@ -29,15 +29,12 @@ function Register() {
     }
 
     try {
-      await axios.post(
-        "http://localhost:5000/api/auth/register",
-        {
-          name: formData.name,
-          email: formData.email,
-          mobile: formData.mobile,
-          password: formData.password,
-        }
-      );
+      await axios.post("/auth/register", {
+        name: formData.name,
+        email: formData.email,
+        mobile: formData.mobile,
+        password: formData.password,
+      });
 
       alert("Registration successful!");
       navigate("/");
@@ -65,9 +62,7 @@ function Register() {
         <div className="col-6 p-5 d-flex flex-column justify-content-center">
           <div className="text-center mb-4">
             <h2 className="fw-bold mb-2">Create Account</h2>
-            <p style={{ color: "#6c757d" }}>
-              Register to get started
-            </p>
+            <p style={{ color: "#6c757d" }}>Register to get started</p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -118,9 +113,7 @@ function Register() {
               />
 
               <i
-                className={`bi ${
-                  showPassword ? "bi-eye-slash" : "bi-eye"
-                }`}
+                className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
                   position: "absolute",
@@ -170,18 +163,18 @@ function Register() {
           }}
         >
           <img
-  src={logo}
-  alt="Solace Logo"
-  style={{
-    maxWidth: "60%",
-    height: "auto",
-    objectFit: "contain"
-  }}
-/>
+            src={logo}
+            alt="Solace Logo"
+            style={{
+              maxWidth: "60%",
+              height: "auto",
+              objectFit: "contain",
+            }}
+          />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;
